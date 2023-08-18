@@ -1,0 +1,57 @@
+@startuml
+'small person
+skinparam actorStyle Hollow 
+'big person
+'skinparam actorStyle awesome 
+
+
+'defines
+'define 01 - AIDL
+usecase AIDLDeclare as "AIDL(Service)
+--
+getService
+--
+getAIDLInterface"
+usecase AIDLInstance as "AIDL(MainActivity)"
+
+'define 02 - interface
+usecase InterfaceDeclare as "IOnNewLabelArrivedListener
+--
+mListenerList(Service)
+..Instance..
+label arrived:\nnotify listener"
+usecase InterfaceInstance as "Interface(MainActivity)
+--
+define\nmOnNewLabelArrivedListener
+..Instance..
+registerListener"
+
+'define 03 - handler
+usecase HandlerDeclare as "communicate
+--
+TcpServer
+..Instance..
+label received"
+
+'define 04 - broadcast
+usecase BroadcastDeclase as "BroadcastDeclase"
+usecase BroadcastInstance as "BroadcastInstance"
+
+'relations
+'relation 01
+:AIDL: --> AIDLDeclare
+AIDLDeclare --> AIDLInstance
+
+'relation 02
+:interface function: --> InterfaceDeclare
+InterfaceDeclare --> InterfaceInstance
+
+'relation 03
+:handler: --> HandlerDeclare
+HandlerDeclare -left-> InterfaceDeclare
+
+'relation 04
+:broadcast: --> BroadcastDeclase
+BroadcastDeclase --> BroadcastInstance
+
+@enduml
